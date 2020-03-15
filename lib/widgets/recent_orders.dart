@@ -4,6 +4,36 @@ import 'package:flutter/material.dart';
 import '../styles.dart';
 
 class RecentOrders extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: Text(
+            'Recent Orders',
+            style: h2,
+          ),
+        ),
+        Container(
+          height: 120.0,
+          margin: EdgeInsets.only(bottom: 15.0),
+          child: ListView.builder(
+            physics: BouncingScrollPhysics(),
+            padding: EdgeInsets.only(left: 10.0),
+            scrollDirection: Axis.horizontal,
+            itemCount: currentUser.orders.length,
+            itemBuilder: (BuildContext context, int index) {
+              Order order = currentUser.orders[index];
+              return _buildRecentOrder(context, order);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
   _buildRecentOrder(BuildContext context, Order order) {
     return Container(
       margin: EdgeInsets.all(10.0),
@@ -78,36 +108,6 @@ class RecentOrders extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: Text(
-            'Recent Orders',
-            style: h2,
-          ),
-        ),
-        Container(
-          height: 120.0,
-          margin: EdgeInsets.only(bottom: 15.0),
-          child: ListView.builder(
-            physics: BouncingScrollPhysics(),
-            padding: EdgeInsets.only(left: 10.0),
-            scrollDirection: Axis.horizontal,
-            itemCount: currentUser.orders.length,
-            itemBuilder: (BuildContext context, int index) {
-              Order order = currentUser.orders[index];
-              return _buildRecentOrder(context, order);
-            },
-          ),
-        ),
-      ],
     );
   }
 }
